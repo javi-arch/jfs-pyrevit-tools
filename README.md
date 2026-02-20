@@ -1,0 +1,1 @@
+Development of JFS tools to facilitate and speed up tasks in Revit, via Python scripts through the PyRevit plugin. This custom toolbar includes buttons for exporting and importing text data with Excel, automation in legend documentation, and fire evacuation analysis.
