@@ -1,2 +1,7 @@
-__pycache__/
+# Bloquear configuraciones de cualquier editor
+.idea/
+.vscode/
+
+# Bloquear archivos temporales de Python
+**/__pycache__/
 *.pyc
