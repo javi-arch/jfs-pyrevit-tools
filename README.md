@@ -24,15 +24,13 @@ Custom toolbar for Revit developed with **pyRevit**. It includes the following a
     * **Evacuation Stairs:**
       This tool calculates the number of people for which an evacuation staircase must be dimensioned, automatically filling its 'MINIMUM WIDTH' and 'NUMBER PEOPLE' parameters.
 
----
-
-### Dependencies
+## Dependencies
 To use these tools, the [pyRevit plugin](https://pyrevitlabs.notion.site/) must be installed in Revit, and the folder where they are located must be linked to the Custom Extension Directories so that **pyRevit** can recognize them properly.
 
-### Preview
+## Preview
 <img width="897" height="107" alt="img-preview-JFS-tools" src="https://github.com/user-attachments/assets/2fe5d4de-4f09-4694-9556-b9b3c0edf0c4" />
 
 ---
+**Author:** Javier Fidalgo Saeta
 
-**Author:** Javier Fidalgo Saeta  
 **Platform:** Revit 25 + pyRevit
