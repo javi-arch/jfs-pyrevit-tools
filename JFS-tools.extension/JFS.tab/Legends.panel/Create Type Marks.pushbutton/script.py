@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__title__   = "Create Type marks"
+__title__   = "Create Type Marks"
 __doc__     = """Version = 1.0
 Date     = 17.10.2025
 ________________________________________________________________

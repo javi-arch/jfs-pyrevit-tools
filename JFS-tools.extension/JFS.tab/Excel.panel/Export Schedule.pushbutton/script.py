@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__title__   = "Export schedule"
+__title__   = "Export Schedule"
 __doc__     = """Version = 1.0
 Date     = 27.10.2025
 ________________________________________________________________
