@@ -1,7 +1,15 @@
-# Bloquear configuraciones de cualquier editor
+# Editor settings
 .idea/
 .vscode/
 
-# Bloquear archivos temporales de Python
-**/__pycache__/
+# Python bytecode
+__pycache__/
 *.pyc
+
+# Operating system files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Office lock files (left behind while a workbook is open)
+~$*
