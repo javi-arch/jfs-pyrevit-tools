@@ -21,9 +21,10 @@ TODO:
 ________________________________________________________________
 Last Updates:
 
-- [27.10.2025] v1.0 Tool complete.
-________________________________________________________________
-Author: Javier Fidalgo Saeta"""
+- [27.10.2025] v1.0 Tool complete."""
+__author__        = "Javier Fidalgo Saeta"
+__helpurl__       = "https://github.com/javi-arch/jfs-pyrevit-tools#export-schedule"
+__min_revit_ver__ = 2024
 
 #pylint: disable=C0103,E0401
 
@@ -32,11 +33,10 @@ Author: Javier Fidalgo Saeta"""
 
 from pyrevit import forms
 
-from rpw.ui.forms import *
+from rpw.ui.forms import select_file
 import xlsxwriter
 
 from Autodesk.Revit.DB import *
-from Autodesk.Revit.UI.Selection import *
 
 import os
 
@@ -52,8 +52,6 @@ app    = __revit__.Application
 uidoc  = __revit__.ActiveUIDocument
 doc    = __revit__.ActiveUIDocument.Document #type:Document
 active_view = doc.ActiveView
-
-selection = uidoc.Selection         #type: Selection
 
 
 # MAIN - MAIN - MAIN - MAIN - MAIN - MAIN - MAIN - MAIN - MAIN - MAIN - MAIN - MAIN - MAIN - MAIN - MAIN

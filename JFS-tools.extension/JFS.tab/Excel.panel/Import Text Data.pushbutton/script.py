@@ -10,8 +10,8 @@ ES - Esta herramienta importa modificaciones en el texto de parámetros de tipo,
 ________________________________________________________________
 How-To:
 
-EN - Select the Excel file that was exported using the 'Export schedule' tool.
-ES - Seleccionar el archivo Excel en el que se ha realizado la exportación con la herramienta 'Exportar tabla'.
+EN - Select the Excel file that was exported using the 'Export Schedule' tool.
+ES - Seleccionar el archivo Excel en el que se ha realizado la exportación con la herramienta 'Export Schedule'.
 ________________________________________________________________
 TODO:
 
@@ -19,23 +19,22 @@ TODO:
 ________________________________________________________________
 Last Updates:
 
-- [27.10.2025] v1.0 Tool complete.
-________________________________________________________________
-Author: Javier Fidalgo Saeta"""
+- [27.10.2025] v1.0 Tool complete."""
+__author__        = "Javier Fidalgo Saeta"
+__helpurl__       = "https://github.com/javi-arch/jfs-pyrevit-tools#import-text-data"
+__min_revit_ver__ = 2024
 
 
 # IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS
 
 from Autodesk.Revit.DB import *
 
-from Autodesk.Revit.DB import StorageType
-
 import clr
 
 clr.AddReference('System')
 
 
-from rpw.ui.forms import *
+from rpw.ui.forms import select_file
 
 import xlrd
 

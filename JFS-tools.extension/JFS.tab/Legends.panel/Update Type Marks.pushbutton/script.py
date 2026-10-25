@@ -6,7 +6,7 @@ ________________________________________________________________
 Description:
 
 EN - This tool updates Type Mark text notes corresponding to legend components found in the current view.
-ES - Esta herramienta actualiza las notas de texto de marcas de tipo respective a componentes de leyenda que se encuentran en la vista actual.
+ES - Esta herramienta actualiza las notas de texto de marcas de tipo correspondientes a componentes de leyenda que se encuentran en la vista actual.
 ________________________________________________________________
 How-To:
 
@@ -22,30 +22,23 @@ ________________________________________________________________
 Last Updates:
 
 - [17.10.2025] v1.0 Tool complete.
-- [30.01.2026] v1.1 Addition of auxiliary arrows to visualize the link between each text note and its legend component..
-________________________________________________________________
-Author: Javier Fidalgo Saeta"""
+- [30.01.2026] v1.1 Addition of auxiliary arrows to visualize the link between each text note and its legend component."""
+__author__        = "Javier Fidalgo Saeta"
+__helpurl__       = "https://github.com/javi-arch/jfs-pyrevit-tools#update-type-marks"
+__min_revit_ver__ = 2024
 
 
 # IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS
 
-from types import ObjectType
-
-
 from Autodesk.Revit.DB import *
-
-from Autodesk.Revit.DB import XYZ
 
 from pyrevit import forms
 
 import math
 
-import re
-
 import sys
 
 import clr
-from rpw.db import FamilyInstance
 
 from System.Collections.Generic import List
 
@@ -82,7 +75,7 @@ res = forms.alert("EN - This tool updates Type Mark text notes corresponding to 
 "In irregular configurations, variable formats, or very tall/wide cells, the tool may fail. "
 "Manual identification is recommended for these special cases by pinning the text note to prevent errors.\n\n\n"
                   
-"ES - Esta herramienta actualiza las notas de texto de marcas de tipo respective a familias con"
+"ES - Esta herramienta actualiza las notas de texto de marcas de tipo correspondientes a familias con"
 " componentes de leyenda en la vista actual. Antes de continuar ten en cuenta las siguientes condiciones para su "
 "correcto funcionamiento:\n\n"
 
@@ -93,7 +86,7 @@ res = forms.alert("EN - This tool updates Type Mark text notes corresponding to 
 " puedes bloquear su nota de texto correspondiente.\n\n"
 
 "- La herramienta tiene en cuenta la información aportada por el usuario sobre el formato y posicionamiento de los elementos de la leyenda. "
-" En configuraciones irregulares, con formatos variables o celdas muy altas o anchas, la herramienta puede fallar. Se recomienda la identificación"
+"En configuraciones irregulares, con formatos variables o celdas muy altas o anchas, la herramienta puede fallar. Se recomienda la identificación"
 " de estos casos especiales para su actualización manual, bloqueando la nota de texto para evitar la modificación errónea por parte de la herramienta.\n\n",
 
 options=["Cancel", "Continue"])
@@ -394,7 +387,7 @@ if not check_exists_r:
     new_frt = existing_type.Duplicate(new_type_name_r)
 
     # Configure: Color and Pattern
-    new_frt.ForegroundPatternColor = Color(255, 0, 0)  # Rojo (R, G, B)
+    new_frt.ForegroundPatternColor = Color(255, 0, 0)  # Red (R, G, B)
     new_frt.ForegroundPatternId = fill_pattern.Id
     new_frt.IsMasking = True
 
@@ -408,7 +401,7 @@ if not check_exists_u:
     new_frt = existing_type.Duplicate(new_type_name_u)
 
     # Configure: Color and Pattern
-    new_frt.ForegroundPatternColor = Color(255, 128, 0)  # Rojo (R, G, B)
+    new_frt.ForegroundPatternColor = Color(255, 128, 0)  # Orange (R, G, B)
     new_frt.ForegroundPatternId = fill_pattern.Id
     new_frt.IsMasking = True
 

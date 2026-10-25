@@ -19,26 +19,21 @@ TODO:
 ________________________________________________________________
 Last Updates:
 
-- [17.10.2025] v1.0 Tool complete.
-________________________________________________________________
-Author: Javier Fidalgo Saeta"""
+- [17.10.2025] v1.0 Tool complete."""
+__author__        = "Javier Fidalgo Saeta"
+__helpurl__       = "https://github.com/javi-arch/jfs-pyrevit-tools#create-type-marks"
+__min_revit_ver__ = 2024
 
 
 # IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS
-
-from types import ObjectType
 
 from Autodesk.Revit.DB import *
 
 from pyrevit import forms
 
 
-import re
-
-
 #.NET Imports
 import clr
-from rpw.db import FamilyInstance
 
 
 clr.AddReference('System')

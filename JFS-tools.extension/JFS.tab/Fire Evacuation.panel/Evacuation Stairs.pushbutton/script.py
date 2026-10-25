@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __title__   = "Evacuation Stairs"
 __doc__     = """Version = 1.0
-Fecha    = 29.10.2025
+Date     = 29.10.2025
 ________________________________________________________________
 Description:
 
@@ -17,7 +17,7 @@ The tool also collects the number of people evacuated from stairs or doors found
 evacuation paths, as well as people evacuated by upper or lower stairs, depending on the vertical 
 evacuation direction.
 
-ES - La herramienta recoge las ocupaciones de los espacios por los que pasan las rutas que culminan (fin de la ruta) en la escalera seleccionada por le usuario. Las rutas pueden tener su origen en una puerta de salida de un espacio si así se permite por normativa, la herramienta detectará la ocupación de este espacio igualmente.
+ES - La herramienta recoge las ocupaciones de los espacios por los que pasan las rutas que culminan (fin de la ruta) en la escalera seleccionada por el usuario. Las rutas pueden tener su origen en una puerta de salida de un espacio si así se permite por normativa, la herramienta detectará la ocupación de este espacio igualmente.
 La herramienta también recoge el número de personas evacuadas desde escaleras o puertas que encuentre en el origen de las rutas de evacuación, así como las personas evacuadas por escaleras superiores o inferiores, dependiendo del sentido de la evacuación vertical.
 ________________________________________________________________
 TODO:
@@ -26,15 +26,13 @@ TODO:
 ________________________________________________________________
 Last Updates:
 
-- [29.10.2025] v1.0 Tool assuming simple width calculation cases (min_width = max(number_people / 160.0, 1.0)).
-________________________________________________________________
-Author: Javier Fidalgo Saeta"""
+- [29.10.2025] v1.0 Tool assuming simple width calculation cases (min_width = max(number_people / 160.0, 1.0))."""
+__author__        = "Javier Fidalgo Saeta"
+__helpurl__       = "https://github.com/javi-arch/jfs-pyrevit-tools#evacuation-stairs"
+__min_revit_ver__ = 2024
 
 
 # IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS
-
-from types import ObjectType
-
 
 from Autodesk.Revit.DB import *
 from Autodesk.Revit.UI.Selection import *
@@ -49,10 +47,8 @@ import sys
 
 #.NET Imports
 import clr
-from rpw.db import FamilyInstance
 
 clr.AddReference('System')
-from System.Collections.Generic import List
 
 
 # VARIABLES - VARIABLES - VARIABLES - VARIABLES - VARIABLES - VARIABLES - VARIABLES - VARIABLES - VARIABLES
@@ -89,7 +85,7 @@ res = forms.alert("EN - This tool calculates the number of people for which an e
 
 "- Todas las rutas de evacuación (Líneas de camino del recorrido) de la planta deben estar dibujadas, así como los espacios (revisar parámetro 'ADDS OCCUPANCY'), que deben tener su ocupación correctamente asignada: la herramienta recoge las ocupaciones de los espacios por los que pasan las rutas que culminan (fin de la ruta) en la escalera a analizar. En caso de que por normativa no sea necesario que las rutas culminen en la propia escalera, sino que llegan hasta una compartimentación previa (escaleras protegidas, por ejemplo), se recomienda la utilización de la herramienta 'Evacuation Doors' para el cálculo del 'NUMBER PEOPLE' hasta dicha compartimentación, para después añadir manualmente el dato al parámetro de la escalera. Las rutas pueden tener su origen en una puerta de salida de un espacio si así se permite por normativa, la herramienta detectará la ocupación de este espacio igualmente.\n\n"
 
-"- Las rutas (Líneas de camino del recorrido) y espacios correspondientes deben estar asociados al mismo nivel (base o superior, según evacuación ascendente o descendente) que la escalera  de evacuación a analizar. Por ejemplo, si rutas y espacios están construidos en el nivel 'Level 1', pero el nivel superior de la escalera de evacuación es 'Level 1_Terrace', la herramienta fallará. En este ejemplo el nivel superior de la escalera debe ser 'Level 1', independientemente del 'Desfase superior' que pueda tener.\n\n"
+"- Las rutas (Líneas de camino del recorrido) y espacios correspondientes deben estar asociados al mismo nivel (base o superior, según evacuación ascendente o descendente) que la escalera de evacuación a analizar. Por ejemplo, si rutas y espacios están construidos en el nivel 'Level 1', pero el nivel superior de la escalera de evacuación es 'Level 1_Terrace', la herramienta fallará. En este ejemplo el nivel superior de la escalera debe ser 'Level 1', independientemente del 'Desfase superior' que pueda tener.\n\n"
                   
 "- La herramienta recoge el 'NUMBER PEOPLE' de puertas y escaleras desde las que parten rutas de evacuación hasta la escalera a analizar. También detecta la continuidad vertical en la evacuación del proyecto, recogiendo el 'NUMBER PEOPLE' que llegan desde una escalera previa, inferior o superior, dependiendo del sentido de evacuación. Por esto es importante ir utilizando la herramienta en orden de evacuación, para asegurarnos de que la carga de personas se va acumulando.\n\n",
 

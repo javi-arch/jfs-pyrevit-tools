@@ -14,9 +14,9 @@ EN - The tool collects the occupancy of spaces through which evacuation paths pa
 Paths may originate at an exit door of a space if permitted by regulations; the tool will detect the occupancy of this space regardless.
 The tool also collects the number of people evacuated from stairs or doors found at the origin of the evacuation paths.
 
-ES - La herramienta recoge las ocupaciones de los espacios por los que pasan las paths  que culminan (fin de la path) en la puerta seleccionada por el usuario.
-Las paths pueden tener su origen en una puerta de salida de un espacio si así se permite por normativa, la herramienta detectará la ocupación de este espacio igualmente.
-La herramienta también recoge el número de personas evacuadas desde stairs o puertas que encuentre en el origen de las paths de evacuación.
+ES - La herramienta recoge las ocupaciones de los espacios por los que pasan las rutas que culminan (fin de la ruta) en la puerta seleccionada por el usuario.
+Las rutas pueden tener su origen en una puerta de salida de un espacio si así se permite por normativa, la herramienta detectará la ocupación de este espacio igualmente.
+La herramienta también recoge el número de personas evacuadas desde escaleras o puertas que encuentre en el origen de las rutas de evacuación.
 ________________________________________________________________
 TODO:
 
@@ -25,15 +25,13 @@ ________________________________________________________________
 Last Updates:
 
 - [28.08.2025] v1.0 Initial version without detection of people evacuated from stairs or doors at the evacuation origin.
-- [05.09.2025] v1.1 Tool complete.
-________________________________________________________________
-Author: Javier Fidalgo Saeta"""
+- [05.09.2025] v1.1 Tool complete."""
+__author__        = "Javier Fidalgo Saeta"
+__helpurl__       = "https://github.com/javi-arch/jfs-pyrevit-tools#evacuation-doors"
+__min_revit_ver__ = 2024
 
 
 # IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS - IMPORTS
-
-from types import ObjectType
-
 
 from Autodesk.Revit.DB import *
 from Autodesk.Revit.UI.Selection import *
@@ -48,10 +46,8 @@ import sys
 
 #.NET Imports
 import clr
-from rpw.db import FamilyInstance
 
 clr.AddReference('System')
-from System.Collections.Generic import List
 
 
 # VARIABLES - VARIABLES - VARIABLES - VARIABLES - VARIABLES - VARIABLES - VARIABLES - VARIABLES - VARIABLES
@@ -82,14 +78,14 @@ res = forms.alert("EN - This tool calculates the number of people for which a fl
 
 "ES - Esta herramienta calcula el número de personas para las que debe ser dimensionada una puerta de evacuación de planta o edificio rellenando automáticamente sus parámetros de 'MINIMUM WIDTH' y 'NUMBER PEOPLE'. Antes de continuar ten en cuenta las siguientes condiciones para su correcto funcionamiento:\n\n"
 
-"- Deben estar creados los parámetros compartidos 'MINIMUM WIDTH' (Tipo de dato: Longitud) y 'NUMBER PEOPLE' (Tipo de dato: Entero) en disciplina 'Común', para las categorías de puertas y stairs.\n\n"
+"- Deben estar creados los parámetros compartidos 'MINIMUM WIDTH' (Tipo de dato: Longitud) y 'NUMBER PEOPLE' (Tipo de dato: Entero) en disciplina 'Común', para las categorías de puertas y escaleras.\n\n"
 
-"- Todas las paths de evacuación (Líneas de camino del recorrido) de la planta deben estar dibujadas, así como los espacios (revisar parámetro 'ADDS OCCUPANCY'), que deben tener su ocupación corlinemente asignada: la herramienta recoge las ocupaciones de los espacios por los que pasan las paths que culminan (fin de la path) en la puerta a analizar. Las paths pueden tener su origen en una puerta de salida de un espacio si así se permite por normativa, la herramienta detectará la ocupación de este espacio igualmente.\n\n"
+"- Todas las rutas de evacuación (Líneas de camino del recorrido) de la planta deben estar dibujadas, así como los espacios (revisar parámetro 'ADDS OCCUPANCY'), que deben tener su ocupación correctamente asignada: la herramienta recoge las ocupaciones de los espacios por los que pasan las rutas que culminan (fin de la ruta) en la puerta a analizar. Las rutas pueden tener su origen en una puerta de salida de un espacio si así se permite por normativa, la herramienta detectará la ocupación de este espacio igualmente.\n\n"
 
-"- Las paths (Líneas de camino del recorrido) y espacios correspondientes deben estar asociados al mismo nivel que la puerta de evacuación a analizar. Por ejemplo, si paths y espacios están construidos en el nivel 'Level 1', pero la puerta de evacuación está asociada al nivel 'Level 1_Terrace', la herramienta fallará. En este ejemplo el nivel de la puerta debe ser 'P01', independientemente del desfase o 'Altura de antepecho' que pueda tener.\n\n"
+"- Las rutas (Líneas de camino del recorrido) y espacios correspondientes deben estar asociados al mismo nivel que la puerta de evacuación a analizar. Por ejemplo, si rutas y espacios están construidos en el nivel 'Level 1', pero la puerta de evacuación está asociada al nivel 'Level 1_Terrace', la herramienta fallará. En este ejemplo el nivel de la puerta debe ser 'Level 1', independientemente del desfase o 'Altura de antepecho' que pueda tener.\n\n"
 
-"- La herramienta también recoge el 'NUMBER PEOPLE' de puertas y stairs desde las que parten paths de evacuación hasta la puerta. Para calcular el 'NUMBER PEOPLE' de stairs se recomienda utilizar la herramienta 'Evacuation Stairs'. Para que estas herramientas funcionen corlinemente en proyectos con stairs de evacuación ascendente es imprescindible utilizar el parámetro compartido 'UPWARD EVACUATION' (Tipo de dato: Sí/No) en disciplina 'Común', "
-"para la categoría de stairs. Es importante tener en cuenta casos en los que el origen de la path no llega a la escalera, sino que por normativa es suficiente con que empieze en una compartimentación previa (stairs protegidas, por ejemplo). En estos casos lo correcto es usar la herramienta 'Evacuation Stairs' para después pasar manualmente el 'NUMBER PEOPLE' calculado al parámetro de la puerta de la compartimentación, el cual será tenido en cuenta al ejecutar las herramientas del protocolo."
+"- La herramienta también recoge el 'NUMBER PEOPLE' de puertas y escaleras desde las que parten rutas de evacuación hasta la puerta. Para calcular el 'NUMBER PEOPLE' de escaleras se recomienda utilizar la herramienta 'Evacuation Stairs'. Para que estas herramientas funcionen correctamente en proyectos con escaleras de evacuación ascendente es imprescindible utilizar el parámetro compartido 'UPWARD EVACUATION' (Tipo de dato: Sí/No) en disciplina 'Común', "
+"para la categoría de escaleras. Es importante tener en cuenta casos en los que el origen de la ruta no llega a la escalera, sino que por normativa es suficiente con que empiece en una compartimentación previa (escaleras protegidas, por ejemplo). En estos casos lo correcto es usar la herramienta 'Evacuation Stairs' para después pasar manualmente el 'NUMBER PEOPLE' calculado al parámetro de la puerta de la compartimentación, el cual será tenido en cuenta al ejecutar las herramientas del protocolo."
 "\n\n",
 
 options=["Cancel", "Select door"])
