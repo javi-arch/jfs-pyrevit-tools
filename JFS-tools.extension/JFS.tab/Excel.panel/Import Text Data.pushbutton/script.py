@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __title__   = "Import Text Data"
-__doc__     = """Version = 1.0
-Date     = 27.10.2025
+__doc__     = """Version = 1.1
+Date     = 25.10.2026
 ________________________________________________________________
 Description:
 
@@ -19,7 +19,8 @@ TODO:
 ________________________________________________________________
 Last Updates:
 
-- [27.10.2025] v1.0 Tool complete."""
+- [27.10.2025] v1.0 Tool complete.
+- [25.10.2026] v1.1 Parameters are matched by their exact Id, not by a partial match."""
 __author__        = "Javier Fidalgo Saeta"
 __helpurl__       = "https://github.com/javi-arch/jfs-pyrevit-tools#import-text-data"
 __min_revit_ver__ = 2024
@@ -136,8 +137,8 @@ with ProgressBar(title='Importing data ... ({value} of {max_value})', cancellabl
 
                 t_param = False
                 for p in typ.Parameters:
-                    # Compare each param: If code in Id number of param
-                    if code in str(p.Id.Value):
+                    # Compare each param: the code must be its exact Id number
+                    if p.Id.Value == code_int:
                         t_param = p
                         break
 
