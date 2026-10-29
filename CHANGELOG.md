@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- A sample model saved in Revit 2027 and the shared parameters file, in the `samples` folder.
+
+### Changed
+
+- The README says the tools were built for Revit 2025 and last tested on Revit 2027.
+
+### Removed
+
+- The ribbon screenshot in the README, which showed the old button names.
+
 ## [1.0.0] - 2026-10-25
 
 First tagged release.
@@ -41,4 +55,5 @@ Each button keeps its own version number in its tooltip.
 - **2025-09-05:** Evacuation Doors v1.1 adds the people coming from doors and stairs at the start of each route.
 - **2025-08-28:** Evacuation Doors v1.0.
 
+[Unreleased]: https://github.com/javi-arch/jfs-pyrevit-tools/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/javi-arch/jfs-pyrevit-tools/releases/tag/v1.0.0

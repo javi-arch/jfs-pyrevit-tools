@@ -6,8 +6,6 @@
 
 A [pyRevit](https://github.com/pyrevitlabs/pyRevit) extension that adds a **JFS** tab to the Revit ribbon. Its buttons export and import type parameter text with Excel, keep legend annotations in sync with the model, and size evacuation doors and stairs under the Spanish building code (CTE DB-SI).
 
-<img width="897" alt="The JFS tab in the Revit ribbon" src="https://github.com/user-attachments/assets/2fe5d4de-4f09-4694-9556-b9b3c0edf0c4" />
-
 > **Context.** I wrote these tools in 2025, with the last updates in January 2026, while learning the Revit API through pyRevit. Each one automates a task I used to do by hand in real projects. Today an AI assistant could write similar scripts in minutes; I keep them here as a record of how I solved each problem at the time.
 
 ## Tools
@@ -27,7 +25,7 @@ The **Home** panel adds a link to my website and a **Help** button with contact 
 
 ## Requirements
 
-- **Revit 2024 or later.** The scripts use API members that Revit 2024 introduced, such as `ElementId.Value`. I developed and used them on Revit 2025.
+- **Revit 2024 or later.** The scripts use API members that Revit 2024 introduced, such as `ElementId.Value`. They were built for Revit 2025 and last tested on Revit 2027 with the [sample model](#sample-model).
 - **pyRevit**, in a version that supports your Revit, running scripts on its default IronPython 2.7 engine.
 - Nothing else to install: `xlsxwriter`, `xlrd` and `rpw`, used by the Excel tools, ship with pyRevit.
 
@@ -43,6 +41,13 @@ The **Home** panel adds a link to my website and a **Help** button with contact 
 3. Click **Save Settings and Reload**. The **JFS** tab appears in the ribbon.
 
 If you prefer the pyRevit command line, `pyrevit extensions paths add "C:\path\to\jfs-pyrevit-tools"` does step 2. To update the tools later, download the repository again (or run `git pull`) and reload pyRevit.
+
+## Sample model
+
+The [`samples`](samples) folder has what you need to try the tools:
+
+- `jfs-tools-sample-revit2027.rvt`: a small model to try the buttons on. It was saved in Revit 2027, so it opens in Revit 2027 or later.
+- `jfs-tools-shared-parameters.txt`: the shared parameters file that defines `NUMBER PEOPLE` and `MINIMUM WIDTH`. Load it in **Manage → Shared Parameters** to add them to your own projects.
 
 ## Using the tools
 
@@ -92,7 +97,7 @@ Works like Update Type Marks, for `Count Text` notes.
 
 These tools apply the evacuation rules of the Spanish building code, CTE DB-SI. Before running them:
 
-- Create the shared parameters `NUMBER PEOPLE` (Integer) and `MINIMUM WIDTH` (Length), discipline Common, for the Doors and Stairs categories.
+- Create the shared parameters `NUMBER PEOPLE` (Integer) and `MINIMUM WIDTH` (Length), discipline Common, for the Doors and Stairs categories. The [shared parameters file](#sample-model) in `samples` already defines them.
 - Optionally, create `UPWARD EVACUATION` (Yes/No) for Stairs, to mark stairs that evacuate upwards, and `ADDS OCCUPANCY` (Yes/No) for Spaces, to leave out spaces that do not add occupancy.
 - Draw every evacuation route with **Path of Travel** lines, and model the MEP **Spaces** with their occupancy.
 - Put routes and spaces on the level of the door you analyze or, for a stair, on the level where people enter it.
@@ -116,6 +121,7 @@ JFS-tools.extension/
     ├── Excel.panel/             Export Schedule, Import Text Data
     ├── Legends.panel/           Create and Update Type Marks, Create and Update Counts
     └── Fire Evacuation.panel/   Evacuation Doors, Evacuation Stairs
+samples/                         Sample model and shared parameters file
 ```
 
 Each button is a folder with its `script.py` and `icon.png`, following the pyRevit bundle conventions. The `bundle.yaml` files set the order of panels and buttons. Version history is in [CHANGELOG.md](CHANGELOG.md).
@@ -128,7 +134,7 @@ Each button is a folder with its `script.py` and `icon.png`, following the pyRev
 - **Leyendas:** crear y actualizar notas de texto con la marca de tipo o el número de ejemplares de cada componente de leyenda.
 - **Evacuación de incendios:** calcular la ocupación y el ancho mínimo de puertas y escaleras de evacuación según el CTE DB-SI.
 
-Todos los mensajes de las herramientas están en inglés y en español. Requiere Revit 2024 o posterior. Para instalarla, descarga el repositorio y añade su carpeta en **pyRevit → Settings → Custom Extension Directories**.
+Todos los mensajes de las herramientas están en inglés y en español. Requiere Revit 2024 o posterior; se crearon para Revit 2025 y se comprobaron por última vez en Revit 2027 con el modelo de prueba de la carpeta `samples`. Para instalarla, descarga el repositorio y añade su carpeta en **pyRevit → Settings → Custom Extension Directories**.
 
 Las desarrollé en 2025, con las últimas mejoras en enero de 2026, mientras aprendía la API de Revit con pyRevit.
 
