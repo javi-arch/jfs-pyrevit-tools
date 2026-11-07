@@ -144,4 +144,4 @@ Las desarrollé en 2025, con las últimas mejoras en enero de 2026, mientras apr
 
 ## Author
 
-**Javier Fidalgo Saeta**, architect and BIM specialist: [javierfidalgosaeta.com](https://javierfidalgosaeta.com) · [LinkedIn](https://www.linkedin.com/in/jafisa/) · [GitHub](https://github.com/javi-arch)
+**Javier Fidalgo Saeta**, architect and BIM specialist: [javierfidalgosaeta.com](https://javierfidalgosaeta.com) · [LinkedIn](https://www.linkedin.com/in/javi-arch/) · [GitHub](https://github.com/javi-arch)
